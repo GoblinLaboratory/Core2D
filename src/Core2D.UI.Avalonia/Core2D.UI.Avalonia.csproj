@@ -3,31 +3,66 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-    <RuntimeIdentifiers>win7-x64;ubuntu.14.04-x64;debian.8-x64;osx.10.12-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
-    <CoreRT>False</CoreRT>
-    <TieredCompilation>True</TieredCompilation>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(CoreRT)' == 'True'">
-    <RdXmlFile Include="$(MSBuildThisFileDirectory)..\..\build\native\rd.xml" />
-    <IlcArg Include="--stacktracedata" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.Runtime.CoreCLR" Version="2.0.8" />
+    <PackageReference Include="Microsoft.NETCore.DotNetHostPolicy" Version="2.1.3" />
   </ItemGroup>
-
-  <Import Project="..\..\build\Base.props" />
-  <Import Project="..\..\build\ILCompiler.props" Condition="'$(CoreRT)' == 'True'" />
-  <Import Project="..\..\build\NETCore.props" Condition="'$(CoreRT)' == 'False'" />
-  <!--<Import Project="..\..\build\NSubsys.props" Condition="'$(CoreRT)' == 'False'" />-->
-  <Import Project="..\..\build\Autofac.props" />
-  <Import Project="..\..\build\Rx.props" />
-  <Import Project="..\..\build\Avalonia.props" />
-  <Import Project="..\..\build\Avalonia.Desktop.props" />
-  <Import Project="..\..\build\SkiaSharp.props" />
-  <Import Project="..\..\build\SharpDX.props" />
-  <Import Project="..\..\build\Dock.Model.props" />
-  <Import Project="..\..\build\Dock.Avalonia.props" />
-  <!--<Import Project="..\..\build\Linker.props" Condition="'$(CoreRT)' == 'False'" />-->
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="3.1.1" />
+    <PackageReference Include="System.Reactive.Core" Version="3.1.1" />
+    <PackageReference Include="System.Reactive.Interfaces" Version="3.1.1" />
+    <PackageReference Include="System.Reactive.Linq" Version="3.1.1" />
+    <PackageReference Include="System.Reactive.PlatformServices" Version="3.1.1" />
+    <PackageReference Condition="$(TargetFramework.StartsWith('net4'))" Include="System.Reactive.Windows.Threading" Version="3.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.6.2-build5977-beta" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.5.0" />
+    <PackageReference Include="System.Memory" Version="4.5.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.6.2-build536" />
+    <PackageReference Include="Avalonia.Xaml.Interactions.Custom" Version="0.6.2-build536" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="1.0.2-build255" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="0.6.2-build5977-beta" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpDX" Version="4.0.1" />
+    <PackageReference Include="SharpDX.Direct2D1" Version="4.0.1" />
+    <PackageReference Include="SharpDX.Direct3D11" Version="4.0.1" />
+    <PackageReference Include="SharpDX.DXGI" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.60.0" />
+    <PackageReference Include="Avalonia.Skia.Linux.Natives" Version="1.60.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.Trace" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.60.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpDX" Version="4.0.1" />
+    <PackageReference Include="SharpDX.Direct2D1" Version="4.0.1" />
+    <PackageReference Include="SharpDX.Direct3D11" Version="4.0.1" />
+    <PackageReference Include="SharpDX.DXGI" Version="4.0.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="**\*.cs" Exclude="obj\**" />
@@ -37,37 +72,14 @@
     <EmbeddedResource Include="Assets\*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
 
-  <Import Project="..\..\build\EmbedXaml.props" />
-
   <ItemGroup>
-    <ProjectReference Include="..\Core2D.Editor\Core2D.Editor.csproj" />
-    <ProjectReference Include="..\Core2D.Model\Core2D.Model.csproj" />
-    <ProjectReference Include="..\Core2D.FileSystem.DotNet\Core2D.FileSystem.DotNet.csproj" />
-    <ProjectReference Include="..\Core2D.FileWriter.SkiaSharp\Core2D.FileWriter.SkiaSharp.csproj" />
-    <ProjectReference Include="..\Core2D.Log.Trace\Core2D.Log.Trace.csproj" />
-    <ProjectReference Include="..\Core2D.Renderer.Avalonia\Core2D.Renderer.Avalonia.csproj" />
-    <ProjectReference Include="..\Core2D.Renderer.SkiaSharp\Core2D.Renderer.SkiaSharp.csproj" />
-    <ProjectReference Include="..\Core2D.ScriptRunner.Roslyn\Core2D.ScriptRunner.Roslyn.csproj" />
-    <ProjectReference Include="..\Core2D.Serializer.Newtonsoft\Core2D.Serializer.Newtonsoft.csproj" />
-    <ProjectReference Include="..\Core2D.Serializer.Xaml\Core2D.Serializer.Xaml.csproj" />
-    <ProjectReference Include="..\Core2D.ServiceProvider.Autofac\Core2D.ServiceProvider.Autofac.csproj" />
-    <ProjectReference Include="..\Core2D.TextFieldReader.CsvHelper\Core2D.TextFieldReader.CsvHelper.csproj" />
-    <ProjectReference Include="..\Core2D.TextFieldWriter.CsvHelper\Core2D.TextFieldWriter.CsvHelper.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
-    <ProjectReference Include="..\Core2D.FileWriter.Dxf\Core2D.FileWriter.Dxf.csproj" />
-    <ProjectReference Include="..\Core2D.FileWriter.Emf\Core2D.FileWriter.Emf.csproj" />
-    <ProjectReference Include="..\Core2D.FileWriter.PdfSharp\Core2D.FileWriter.PdfSharp.csproj" />
-    <ProjectReference Include="..\Core2D.Renderer.Dxf\Core2D.Renderer.Dxf.csproj" />
-    <ProjectReference Include="..\Core2D.Renderer.PdfSharp\Core2D.Renderer.PdfSharp.csproj" />
-    <ProjectReference Include="..\Core2D.Renderer.WinForms\Core2D.Renderer.WinForms.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Controls\DockToolChrome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
