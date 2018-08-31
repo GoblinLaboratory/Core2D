@@ -36,7 +36,8 @@
         <StyleInclude Source="resm:Dock.Avalonia.Controls.DockPanelSplitter.xaml?assembly=Dock.Avalonia"/>
         <StyleInclude Source="resm:Dock.Avalonia.Controls.ProportionalStackPanelSplitter.xaml?assembly=Dock.Avalonia"/>
         <StyleInclude Source="resm:Dock.Avalonia.Controls.DockTarget.xaml?assembly=Dock.Avalonia"/>
-        <StyleInclude Source="resm:Dock.Avalonia.Controls.DockToolChrome.xaml?assembly=Dock.Avalonia"/>
+        <!--<StyleInclude Source="resm:Dock.Avalonia.Controls.DockToolChrome.xaml?assembly=Dock.Avalonia"/>-->
+        <StyleInclude Source="resm:Core2D.UI.Avalonia.Controls.DockToolChrome.xaml?assembly=Core2D.UI.Avalonia"/>
         <StyleInclude Source="resm:Dock.Avalonia.Controls.MetroWindow.xaml?assembly=Dock.Avalonia"/>
         <!-- Border -->
         <Style Selector="Border.panel">

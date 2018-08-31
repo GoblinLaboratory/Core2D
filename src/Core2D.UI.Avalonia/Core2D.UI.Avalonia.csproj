@@ -64,4 +64,10 @@
     <ProjectReference Include="..\Core2D.Renderer.WinForms\Core2D.Renderer.WinForms.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Controls\DockToolChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
 </Project>
